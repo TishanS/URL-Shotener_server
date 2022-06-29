@@ -1,32 +1,3 @@
-// require("dotenv").config();
-// const express = require("express");
-// const app = express();
-// const cors = require("cors");
-// const connection = require("./db");
-// const userRoutes = require("./routes/users");
-// const authRoutes = require("./routes/auth");
-// const passwordResetRoutes = require("./routes/passwordReset");
-
-// // database connection
-// connection();
-
-// // middlewares
-// app.use(express.json());
-// app.use(cors());
-
-// // routes
-// app.use("/api/users", userRoutes);
-// app.use("/api/auth", authRoutes);
-// app.use("/api/password-reset", passwordResetRoutes);
-// app.use('/', (req,res,next) => {
-//     console.log("Dashboard");
-//     res.send("hi heroku");
-//     next();
-// })
-
-// const port = process.env.PORT || 8080;
-// app.listen(port, console.log(`Listening on port ${port}...`));
-
 const express=require('express');
 require('dotenv').config();
 const cors=require('cors');
@@ -43,11 +14,6 @@ app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({extended:false}))
 
-app.use('/', (req,res,next) => {
-    console.log("Dashboard");
-    res.send("hi heroku");
-    next();
-})
 
 app.get('/get',async(req,res)=>{
     const shortUrls=await ShortUrl.find()
@@ -68,5 +34,13 @@ app.get('/:shortUrl', async (req, res) => {
     res.redirect(shortUrl.full)
   })
 
+  app.use('/', (req,res,next) => {
+    console.log("Dashboard");
+    res.send("hi heroku");
+    next();
+})
+
   
-app.listen(process.env.PORT || 5030);
+
+const port = process.env.PORT || 5050;
+app.listen(port, console.log(`Listening on port ${port}...`));
