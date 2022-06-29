@@ -43,6 +43,12 @@ app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({extended:false}))
 
+app.use('/', (req,res,next) => {
+    console.log("Dashboard");
+    res.send("hi heroku");
+    next();
+})
+
 app.get('/get',async(req,res)=>{
     const shortUrls=await ShortUrl.find()
     res.send(shortUrls)
